@@ -12,6 +12,10 @@ class Trades:
         self.currency = currency
 
     def data_per_hour(self):
+        """
+        This function groups the data by hour.
+        :return: return a list of json.
+        """
         items = []
 
         for row in self.data:
@@ -31,6 +35,10 @@ class Trades:
         return consolidated_data.to_json(orient='records')
 
     def quantity_of_trades(self):
+        """
+        Counts purchases and sales made.
+        :return: a json with the summarized data.
+        """
         buy = []
         sell = []
         dates = []
@@ -56,6 +64,10 @@ class Trades:
         return consolidated_data
 
     def amount_negotiated(self):
+        """
+        Generate the traded value.
+        :return: A json with the values.
+        """
         buy = 0
         sell = 0
         dates = []
