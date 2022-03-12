@@ -32,7 +32,31 @@ class Trades:
 
         df = pd.DataFrame(items)
         consolidated_data = df.groupby(['date', 'hour', 'type'], as_index=False).sum()
-        return consolidated_data.to_json(orient='records')
+        return consolidated_data
+
+    def data_per_date(self):
+        """
+        This function groups the data by hour.
+        :return: return a list of json.
+        """
+        items = []
+
+        for row in self.data:
+            date = datetime.strptime(datetime.utcfromtimestamp(int(row['date'])).strftime('%Y-%m-%d %H:%M:%S'),
+                                     '%Y-%m-%d %H:%M:%S')
+
+            summary_trades = {'date': date.strftime('%Y-%m-%d %H:%M:%S'),
+                              'hour': date.hour,
+                              'amount': row['amount'],
+                              'price': row['price'],
+                              'type': row['type']}
+
+            items.append(summary_trades)
+
+        df = pd.DataFrame(items)
+        consolidated_data = df.groupby(['date', 'hour', 'type'], as_index=False).sum( )
+
+        return consolidated_data
 
     def quantity_of_trades(self):
         """
@@ -91,4 +115,3 @@ class Trades:
                              "end_date": end_date}
 
         return consolidated_data
-
