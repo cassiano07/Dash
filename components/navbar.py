@@ -2,7 +2,6 @@ from dash import html
 import dash_bootstrap_components as bc
 
 
-
 def navbar():
     logo = "https://images.plot.ly/logo/new-branding/plotly-logomark.png"
 
@@ -26,6 +25,7 @@ def navbar():
     select = bc.Select(
         id="select",
         options=[{"label": coin, "value": coin} for coin in coins],
+        value="BTC"
     )
 
     # montar o search para adicionar na navbar
@@ -47,16 +47,14 @@ def navbar():
         bc.Container(
             [
                 html.A(
-                    # Use row and col to control vertical alignment of logo / brand
                     bc.Row(
                         [
                             bc.Col(html.Img(src=logo, height="30px")),
-                            bc.Col(bc.NavbarBrand("Daniel Cassiano", className="ms-2")),
+                            bc.Col(bc.NavbarBrand("Last 1000 trades", className="ms-2")),
                         ],
                         align="center",
                         className="g-0",
                     ),
-                    href="https://localhost",
                     style={"textDecoration": "none"},
                 ),
                 bc.NavbarToggler(id="navbar-toggler", n_clicks=0),
@@ -70,6 +68,7 @@ def navbar():
         ),
         color="dark",
         dark=True,
+        style={"width": "100%"}
     )
 
     return nav
