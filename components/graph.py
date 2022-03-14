@@ -48,7 +48,7 @@ class Graphics:
             bc.Row(
                 [
                     bc.Col(html.H5(title, style={'color': '#e4b302'}), width="auto"),
-                    bc.Col(html.H6(data, className="card-title", style={'color': '#8fc9b9'}), width="auto"),
+                    bc.Col(html.H5(data, className="card-title", style={'color': '#8fc9b9'}), width="auto"),
                 ],
                 className="d-flex flex-column justify-content-center align-items-center",
             )
