@@ -2,7 +2,7 @@
 
 Learning about Python Dash library and consolidating knowledge
 
-[Overview](#-overview) • [Features](#-features) • [Post](#-post) • [Technologies](#-technologies) • [Data source](#-data-source) • [How to install](#-how-to-install) • [Contributors](#-contributors) • [Authors](#-author)
+[Overview](#-overview) • [Features](#-features) • [Post](#-post) • [Technologies](#-technologies) • [Data source](#-data-source) • [How to install](#-how-to-install) • [Contributors](#-contributors) • [Author](#-author)
 
 
 ### 👀 Overview
