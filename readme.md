@@ -73,6 +73,6 @@ This explanation is for those who have knowledge about the Python language.
 * <a target="_blank" href="https://www.linkedin.com/in/felipe-carvalho-60675674/">Felipe Carvalho</a>
 * <a target="_blank" href="https://www.linkedin.com/in/luizfmota/">Luiz Mota</a>
 
-### ✍️ Author
+### ✍ Author
 
 * <a target="_blank" href="https://www.linkedin.com/in/danielcm07/">Daniel Cassiano</a>

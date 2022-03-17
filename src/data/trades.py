@@ -26,6 +26,8 @@ class Trades:
         This function groups the data by hour.
         :return: return a Dataframe.
         """
+        if self.df is None:
+            return None
 
         df_hour = self.df.copy()
 
@@ -45,6 +47,8 @@ class Trades:
         A copy of the main dataframe is made and some columns are removed from the dataframe.
         :return: return a Dataframe.
         """
+        if self.df is None:
+            return None
 
         df_date = self.df.copy()
 
@@ -58,6 +62,8 @@ class Trades:
         Counts purchases and sales made.
         :return: a json with the summarized data.
         """
+        if self.df is None:
+            return {}
 
         df_quantity = self.df.copy()
 
@@ -69,11 +75,15 @@ class Trades:
 
         return aggregated_data
 
-    def total_negotiated(self):
+    def total_traded(self):
         """
         Generate the total amount traded.
         :return: A Dataframe.
         """
+
+        if self.df is None:
+            return None
+
         df_total = self.df.copy()
 
         del df_total['date'], df_total['tid'], df_total['price']
@@ -81,3 +91,21 @@ class Trades:
         aggregated_data = df_total.groupby('type', as_index=False).sum()
 
         return aggregated_data
+
+    def total_to_json(self):
+        """
+        Convert total traded to json
+        :return: A json.
+        """
+
+        if self.df is None:
+            return {}
+
+        data = json.loads(self.total_traded().to_json(orient='records'))
+
+        total = {}
+
+        for row in data:
+            total[row['type']] = row['amount']
+
+        return total
