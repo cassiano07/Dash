@@ -1,4 +1,4 @@
-## Dashboard  - The Last 1.000 trades
+## Dashboard  - The Last 1.000 trades -- 🏗 Improvements are still being made
 
 Learning about Python Dash library and consolidating knowledge
 
