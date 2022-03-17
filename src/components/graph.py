@@ -1,13 +1,16 @@
 import dash_bootstrap_components as bc
 from dash import html
 from dash.dcc import Graph
-from data.trades import Trades
+from src.data.trades import Trades
 import plotly.express as px
 
 trade = Trades('BTC')
 
 
 class Graphics:
+    """
+    Creates all the graphs that will show on the dashboard
+    """
 
     def __init__(self, cryptocurrency):
         trades = Trades(cryptocurrency)
@@ -18,6 +21,14 @@ class Graphics:
 
     @staticmethod
     def __cards(component, graph=None, card_id=None):
+        """
+        Inserts received components into a bootstrap card
+
+        :param component: Dash or bootstrap components
+        :param graph: tells if the component is a graphic
+        :param card_id: An id that will be used to place a card identifier
+        :return: a bootstrap component card
+        """
 
         if graph:
             body = Graph(figure=component)
@@ -37,12 +48,25 @@ class Graphics:
 
     @staticmethod
     def __make_tooltip(target, message):
+        """
+        Create tooltip for a component
+        :param target: component id
+        :param message: message to be added in tooltip
+        :return: bootstrap tooltip component
+        """
         return bc.Tooltip(
             message,
             target=target,
         )
 
     def __create_kpi(self, data, card_id=None, title=None):
+        """
+        Create dashboard kpis
+        :param data: the kpi data
+        :param card_id: unique id for component
+        :param title: kpi title
+        :return: kpi cards
+        """
 
         body = [
             bc.Row(
@@ -59,6 +83,10 @@ class Graphics:
         return card
 
     def line_per_date(self):
+        """
+        Build the detailed line chart
+        :return: card with graph and tooltip
+        """
         fig = px.line(
             self.detailed_df,
             x="date",
@@ -89,6 +117,10 @@ class Graphics:
         return self.__cards(component=fig, graph=True, card_id='line_per_date'), tooltip
 
     def doughnut(self):
+        """
+        Build the dashboard donut chart
+        :return: card with graph and tooltip
+        """
         fig = px.pie(
             self.df_total, values=self.df_total['amount'],
             names=self.df_total['type'],
@@ -118,6 +150,10 @@ class Graphics:
         return self.__cards(component=fig, graph=True, card_id='doughnut'), tooltip
 
     def line_per_hour(self):
+        """
+        Build the hourly line chart
+        :return: card with graph and tooltip
+        """
         fig = px.line(self.df_per_hour,
                       x="date",
                       line_shape='spline',
@@ -147,30 +183,43 @@ class Graphics:
         return self.__cards(component=fig, graph=True, card_id='line_per_hour'), tooltip
 
     def cards(self):
+        """
+        Makes a call to the KPI creation functions so that they are created.
+        :return: cards kpis
+        """
+        if self.json_quantity.get('buy'):
 
-        quantity_buy = self.__create_kpi(
-            data=self.json_quantity['buy'],
-            card_id='quantity_buy',
-            title='Quantity buy',
+            quantity_buy = self.__create_kpi(
+                data=self.json_quantity['buy'],
+                card_id='quantity_buy',
+                title='Quantity buy',
 
-        )
+            )
 
-        quantity_sell = self.__create_kpi(
-            data=self.json_quantity['sell'],
-            card_id='quantity_sell',
-            title='Quantity sell',
-        )
+            amount_buy = self.__create_kpi(
+                data=self.df_total.iloc[0]['amount'],
+                card_id='amount_buy',
+                title='Amount buy',
+            )
 
-        amount_buy = self.__create_kpi(
-            data=self.df_total.iloc[0]['amount'],
-            card_id='amount_buy',
-            title='Amount buy',
-        )
+        else:
+            quantity_buy = None
+            amount_buy = None
 
-        amount_sell = self.__create_kpi(
-            data=self.df_total.iloc[1]['amount'],
-            card_id='amount_sell',
-            title='Amount Sell',
-        )
+        if self.json_quantity.get('sell'):
+            quantity_sell = self.__create_kpi(
+                data=self.json_quantity['sell'],
+                card_id='quantity_sell',
+                title='Quantity sell',
+            )
+
+            amount_sell = self.__create_kpi(
+                data=self.df_total.iloc[1]['amount'],
+                card_id='amount_sell',
+                title='Amount Sell',
+            )
+        else:
+            amount_sell = None
+            quantity_sell = None
 
         return quantity_buy, amount_buy, amount_sell, quantity_sell

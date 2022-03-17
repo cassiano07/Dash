@@ -4,6 +4,10 @@ import json
 
 
 class Trades:
+    """
+    Consult the Mercado Bitcoin API to extract data.
+    Performs the manipulation and treatment of data to be presented in graphs.
+    """
 
     def __init__(self, currency):
         self.currency = currency
@@ -20,7 +24,7 @@ class Trades:
     def data_per_hour(self):
         """
         This function groups the data by hour.
-        :return: return a list of json.
+        :return: return a Dataframe.
         """
 
         df_hour = self.df.copy()
@@ -38,8 +42,8 @@ class Trades:
 
     def data_per_date(self):
         """
-        This function groups the data by hour.
-        :return: return a list of json.
+        A copy of the main dataframe is made and some columns are removed from the dataframe.
+        :return: return a Dataframe.
         """
 
         df_date = self.df.copy()
@@ -67,8 +71,8 @@ class Trades:
 
     def total_negotiated(self):
         """
-        Generate the traded value.
-        :return: A json with the values.
+        Generate the total amount traded.
+        :return: A Dataframe.
         """
         df_total = self.df.copy()
 

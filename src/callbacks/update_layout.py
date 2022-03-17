@@ -1,32 +1,8 @@
-from dash import Dash
 import dash_bootstrap_components as bc
-from dash import Input, Output, State, html
-from components import graph, navbar
+from dash import Input, Output, State
 
-# menu
-navbar = navbar.navbar()
-
-# screen body
-body = html.Div(
-    children=[
-        navbar,
-
-        # graphics
-        bc.Row(
-            id="grapichs",
-            style={'width': '100%'},
-        )
-
-    ],
-    style={'width': '100%'},
-    className="d-flex flex-column justify-content-center align-items-center",
-)
-
-app = Dash(__name__, external_stylesheets=[bc.themes.DARKLY, bc.icons.FONT_AWESOME], meta_tags=[
-    {"name": "viewport", 'content': 'width=device-width, initial-scale=1.0, maximum-scale=1.2, minimum-scale=0.5,'}
-])
-
-app.layout = body
+from src.components import graph
+from src.app import app
 
 
 @app.callback(
@@ -39,7 +15,13 @@ app.layout = body
     ],
     [State("select", "value")],
 )
-def toggle_navbar_collapse(action, currency):
+def waiting_for_user_action(action, currency):
+    """
+    Waits for user actions in the currency selection field to be able to update the charts
+    :param action: report a user action
+    :param currency: selected cryptocurrency
+    :return: updated charts based on selected currency data
+    """
     if action:
         grapichs = graph.Graphics(currency)
     else:
@@ -61,6 +43,3 @@ def toggle_navbar_collapse(action, currency):
     )
 
     return currency, cols
-
-
-app.run_server(debug=False, host="0.0.0.0")
