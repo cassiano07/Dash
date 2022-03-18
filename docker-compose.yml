@@ -1,0 +1,10 @@
+version: "3.8"
+
+services:
+  web:
+    build: .
+    command: python run.py
+    volumes:
+      - .:/code
+    ports:
+      - 8050:8050
