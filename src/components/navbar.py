@@ -5,7 +5,6 @@ import dash_bootstrap_components as bc
 def navbar():
     logo = "https://images.plot.ly/logo/new-branding/plotly-logomark.png"
 
-    # select
     coins = ['AAVE', 'ACMFT', 'ACORDO01', 'ADA', 'ALCX', 'ALGO', 'ALICE', 'ALLFT', 'AMFT', 'AMP', 'ANKR', 'ANT',
              'ARGFT', 'ASRFT', 'ATMFT', 'ATOM', 'AUDIO', 'AVAX', 'AXS', 'BAL', 'BAND', 'BARFT', 'BAT', 'BCH', 'BLZ',
              'BNT', 'BTC', 'CAIFT', 'CHZ', 'CITYFT', 'COMP', 'CRV', 'CSCONS01', 'CTSI', 'CVX', 'DAI', 'DOGE', 'DOT',
@@ -21,14 +20,12 @@ def navbar():
              'SYN', 'THFT', 'TRU', 'UFCFT', 'UMA', 'UNI', 'USDC', 'USDP', 'VERDAO', 'VSPRK01', 'WBTC', 'WBX', 'WLUNA',
              'XLM', 'XRP', 'XTZ', 'YBOFT', 'YFI', 'YGG', 'ZRX']
 
-    # Criar select de coins
     select = bc.Select(
         id="select",
         options=[{"label": coin, "value": coin} for coin in coins],
         value="BTC"
     )
 
-    # montar o search para adicionar na navbar
     search_bar = bc.Row(
         [
             bc.Col(select),
@@ -72,5 +69,3 @@ def navbar():
     )
 
     return nav
-
-

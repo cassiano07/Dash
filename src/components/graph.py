@@ -232,10 +232,8 @@ class Graphics:
             )
         ]
 
-        # remove None
         cards = list(filter(None, cards))
 
-        # count cards
         number_of_cards = len(cards)
 
         columns = []
